@@ -1,0 +1,18 @@
+--cpu=Cortex-M4.fp.sp
+".\objects\startup_n32g430.o"
+".\objects\system_n32g430.o"
+".\objects\misc.o"
+".\objects\n32g430_dbg.o"
+".\objects\n32g430_gpio.o"
+".\objects\n32g430_rcc.o"
+".\objects\n32g430_tim.o"
+".\objects\n32g430_dma.o"
+".\objects\adtim_common.o"
+".\objects\gptim_common.o"
+".\objects\isr_common.o"
+".\objects\timer_common.o"
+".\objects\main.o"
+--library_type=microlib --strict --scatter ".\Objects\TIM_PWM_Output.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\TIM_PWM_Output.map" -o .\Objects\TIM_PWM_Output.axf

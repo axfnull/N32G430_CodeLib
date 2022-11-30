@@ -1,0 +1,17 @@
+--cpu=Cortex-M4.fp.sp
+".\objects\startup_n32g430.o"
+".\objects\system_n32g430.o"
+".\objects\misc.o"
+".\objects\n32g430_adc.o"
+".\objects\n32g430_dma.o"
+".\objects\n32g430_flash.o"
+".\objects\n32g430_gpio.o"
+".\objects\n32g430_rcc.o"
+".\objects\n32g430_tim.o"
+".\objects\main.o"
+".\objects\n32g430_it.o"
+".\objects\adc.o"
+--library_type=microlib --strict --scatter ".\Objects\ADC_DMA.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\ADC_DMA.map" -o .\Objects\ADC_DMA.axf
