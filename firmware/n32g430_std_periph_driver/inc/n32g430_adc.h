@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_adc.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
@@ -61,6 +61,13 @@ typedef struct
     uint32_t ChsNumber;             /* Specifies the number of ADC channels that will be converted
                                        using the sequencer for regular channel group */
 } ADC_InitType;
+
+typedef enum
+{
+    CMD_CR_SUCCESS  = 0x00,
+    CMD_CR_FAILED   = 0x01,
+}CMD_RETURN_CR;
+
 
 /** ADC scan conversion define **/
 #define ADC_MULTCH_ENABLE                    ((uint32_t)(ADC_CTRL1_SCANMD)) /* ADC_CTRL1 SCANMD bits */ 
@@ -430,6 +437,8 @@ typedef struct
 #define ADC_DIFSEL_CHS_18   ((uint32_t)ADC_DIFSEL_DIFSEL_18)
 
 /** ADC Driving Functions Declaration **/
+extern CMD_RETURN_CR (*Program_NVR)(uint32_t addr, uint32_t  data);
+extern CMD_RETURN_CR     (*Get_NVR)(uint32_t addr, uint32_t* data); 
 
 void ADC_Reset(void);
 

@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_flash.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #include "n32g430_flash.h"
@@ -40,10 +40,10 @@
 *\*\fun     Sets the code latency value.
 *\*\note    This function can be used for N32G430 devices.
 *\*\param   flash_latency :
-*\*\            - FLASH_LATENCY_0    FLASH Zero Latency cycle
-*\*\            - FLASH_LATENCY_1    FLASH One Latency cycle
-*\*\            - FLASH_LATENCY_2    FLASH Two Latency cycles
-*\*\            - FLASH_LATENCY_3    FLASH Three Latency cycles
+*\*\            - FLASH_LATENCY_0    FLASH Zero Latency cycle, 0 < HCLK <= 32MHz      
+*\*\            - FLASH_LATENCY_1    FLASH One Latency cycle, 32MHz < HCLK<= 64MHz
+*\*\            - FLASH_LATENCY_2    FLASH Two Latency cycles, 64MHz < HCLK<= 96MHz
+*\*\            - FLASH_LATENCY_3    FLASH Three Latency cycles, 96MHz < HCLK
 *\*\return  none
 **/
 void FLASH_Latency_Set(uint32_t flash_latency)
@@ -67,10 +67,10 @@ void FLASH_Latency_Set(uint32_t flash_latency)
 *\*\note    This function can be used for N32G430 devices.
 *\*\param   none
 *\*\return  FLASH_LATENCY :
-*\*\            - FLASH_LATENCY_0    FLASH Zero Latency cycle
-*\*\            - FLASH_LATENCY_1    FLASH One Latency cycle
-*\*\            - FLASH_LATENCY_2    FLASH Two Latency cycles
-*\*\            - FLASH_LATENCY_3    FLASH Three Latency cycles
+*\*\            - FLASH_LATENCY_0    FLASH Zero Latency cycle, 0 < HCLK <= 32MHz      
+*\*\            - FLASH_LATENCY_1    FLASH One Latency cycle, 32MHz < HCLK<= 64MHz
+*\*\            - FLASH_LATENCY_2    FLASH Two Latency cycles, 64MHz < HCLK<= 96MHz
+*\*\            - FLASH_LATENCY_3    FLASH Three Latency cycles, 96MHz < HCLK
 **/
 uint8_t FLASH_Latency_Get(void)
 {
@@ -92,7 +92,7 @@ void FLASH_Prefetch_Buffer_Enable(void)
 }
 
 /**
-*\*\name    FLASH_Prefetch_Buffer_Set
+*\*\name    FLASH_Prefetch_Buffer_Disable
 *\*\fun     Disables the Prefetch Buffer.
 *\*\note    This function can be used for N32G430 devices.
 *\*\param   none
@@ -186,7 +186,7 @@ void FLASH_Cache_LOCK_Start(uint32_t lock_start_way)
 
 /**
 *\*\name   FLASH_Cache_LOCK_Stop
-*\*\fun    Start cache lock.
+*\*\fun    Stop cache lock.
 *\*\note   This function can be used for N32G430 devices.
 *\*\param  lock_stop_way :
 *\*\            - FLASH_CAHR_LOCKSTOP_WAY0
@@ -203,7 +203,7 @@ void FLASH_Cache_LOCK_Stop(uint32_t lock_stop_way)
 
 /**
 *\*\name   FLASH_Cache_LOCK_Cancel
-*\*\fun    Start cache lock.
+*\*\fun    Cancle cache lock.
 *\*\note   This function can be used for N32G430 devices.
 *\*\param  lock_stop_way :
 *\*\            - FLASH_CAHR_LOCKSTOP_WAY0
@@ -305,7 +305,7 @@ void Option_Bytes_Lock(void)
 
 /**
 *\*\name   Option_Bytes_Lock_Status_Get
-*\*\fun    Get the Option_Bytes status.
+*\*\fun    Get the Option Bytes lock status.
 *\*\note   This function can be used for N32G430 devices.
 *\*\param  none
 *\*\return FlagStatus :
@@ -637,7 +637,7 @@ FLASH_STS FLASH_Option_Bytes_User_RDP1_Program(uint8_t option_byte_rpd1, uint16_
 
 /**
 *\*\name   FLASH_Option_Bytes_DATA_Program
-*\*\fun    Programs a half word at a specified Option Byte Data address.
+*\*\fun    Programs a half word at a specified Option Byte Data0 and Data1.
 *\*\note   This function can be used for N32G430 devices.
 *\*\param  option_byte_data0:
 *\*\                - 0x00 to 0xFF
@@ -645,11 +645,11 @@ FLASH_STS FLASH_Option_Bytes_User_RDP1_Program(uint8_t option_byte_rpd1, uint16_
 *\*\                - 0x00 to 0xFF
 *\*\return FLASH_STS: The returned value can be: 
 *\*\                - FLASH_BUSY
-*\*\            - FLASH_ERR_PG
-*\*\            - FLASH_ERR_WRP
-*\*\            - FLASH_EOP
-*\*\            - FLASH_ERR_RDP2
-*\*\            - FLASH_TIMEOUT
+*\*\                - FLASH_ERR_PG
+*\*\                - FLASH_ERR_WRP
+*\*\                - FLASH_EOP
+*\*\                - FLASH_ERR_RDP2
+*\*\                - FLASH_TIMEOUT
 **/
 FLASH_STS FLASH_Option_Bytes_DATA_Program(uint8_t option_byte_data0,uint8_t option_byte_data1)
 {
@@ -675,8 +675,8 @@ FLASH_STS FLASH_Option_Bytes_DATA_Program(uint8_t option_byte_data0,uint8_t opti
         Option_Bytes_Unlock();
         /* Enables the Option Bytes Programming operation */
         FLASH->CTRL |= FLASH_CTRL_SET_OPTPG;
-        OBT->Data1_Data0 = (((uint32_t)option_byte_data0) << FLASH_DATA0_DATA1_OFFSET) \
-                          | ((uint32_t)option_byte_data1);
+        OBT->Data1_Data0 = (((uint32_t)option_byte_data1) << FLASH_DATA0_DATA1_OFFSET) \
+                          | ((uint32_t)option_byte_data0);
 
         /* Wait for last operation to be completed */
         status_value = FLASH_Last_Operation_Wait(PROGRAM_TIMEOUT);
@@ -866,7 +866,7 @@ FLASH_STS FLASH_Option_Bytes_User2_RDP2_Program(uint8_t option_byte_rpd2,uint8_t
 
 /**
 *\*\name   FLASH_Read_Out_Protection_L1_Enable
-*\*\fun    Enables the read out protection.
+*\*\fun    Enables the read out protection L1.
 *\*\note   If the user has already programmed the other option bytes before calling
 *\*\       this function, he must re-program them since this function erases all option bytes.
 *\*\       This function can be used for N32G430 devices.
@@ -956,7 +956,7 @@ FLASH_STS FLASH_Read_Out_Protection_L1_Enable(void)
 
 /**
 *\*\name   FLASH_Read_Out_Protection_L1_Disable
-*\*\fun    Disables the read out protection.
+*\*\fun    Disables the read out protection L1.
 *\*\note   If the user has already programmed the other option bytes before calling
 *\*\       this function, he must re-program them since this function erases all option bytes.
 *\*\       This function can be used for N32G430 devices.
@@ -1053,10 +1053,8 @@ FLASH_STS FLASH_Read_Out_Protection_L1_Disable(void)
 *\*\return FLASH_STS : 
 *\*\        - FLASH_BUSY
 *\*\        - FLASH_ERR_PG 
-*\*\        - FLASH_ERR_PV 
 *\*\        - FLASH_ERR_WRP
 *\*\        - FLASH_EOP
-*\*\        - FLASH_ERR_EV
 *\*\        - FLASH_ERR_RDP2
 *\*\        - FLASH_TIMEOUT
 **/
@@ -1163,20 +1161,28 @@ FLASH_STS FLASH_Read_Out_Protection_L2_Enable(void)
 *\*\name   FLASH_Option_Bytes_User_Get
 *\*\fun    Returns the FLASH User Option Bytes values.
 *\*\note   This function can be used for N32G430 devices.
-*\*\param  none
-*\*\return The FLASH User Option Bytes values :
-*\*\            - Bit0    IWDG_SW
-*\*\            - Bit1    RST_STOP
-*\*\            - Bit2    RST_STDBY
-*\*\            - Bit3    IWDG_STOP0_FRZ
-*\*\            - Bit4    IWDG_STOP2_FRZ
-*\*\            - Bit5    IWDG_STDBY_FRZ
-*\*\            - Bit6    IWDG_SLEEP_FRZ
+*\*\param  option_byte_bit
+*\*\            - FLASH_OB_IWDG_SW
+*\*\            - FLASH_OB_STOP_NORST
+*\*\            - FLASH_OB_STDBY_NORST
+*\*\            - FLASH_OB_IWDG_STOP0_NOFRZ
+*\*\            - FLASH_OB_IWDG_STOP2_NOFRZ
+*\*\            - FLASH_OB_IWDG_STDBY_NOFRZ
+*\*\            - FLASH_OB_IWDG_SLEEP_NOFRZ
+*\*\return FlagStatus :
+*\*\            - SET
+*\*\            - RESET
 **/
-uint32_t FLASH_Option_Bytes_User_Get(void)
+FlagStatus FLASH_Option_Bytes_User_Get(uint32_t option_byte_bit)
 {
-    /* Return the User Option Byte */
-    return (uint32_t)(FLASH->OB >> FLASH_OB_OFFSET);
+    if(((FLASH->OB >> FLASH_OB_OFFSET) & option_byte_bit) != (uint32_t)RESET)
+    {
+        return SET;
+    }
+    else
+    {
+        return RESET;
+    }
 }
 
 
@@ -1238,7 +1244,7 @@ uint32_t FLASH_Option_Bytes_Data1_Get(void)
 *\*\note   This function can be used for N32G430 devices.
 *\*\param  none
 *\*\return The FLASH Write Protection  Option Bytes Register value :
-*\*\            - Bit15 - Bit0 write-protects pages (32,31) - page (0,1) 
+*\*\            - Bit15 - Bit0 write-protects pages (31,30) - page (0,1) 
 **/
 uint32_t FLASH_Option_Bytes_Write_Protection_Get(void)
 {
@@ -1405,8 +1411,7 @@ void FLASH_Flag_Status_Clear(uint32_t flash_flag)
 /**
 *\*\name   FLASH_Status_Get
 *\*\fun    Returns the FLASH_STS.
-*\*\note   This function can be used for N32G430 devices, it is equivalent
-*\*\       to FLASH_GetBank1Status function.
+*\*\note   This function can be used for N32G430 devices.
 *\*\param  none
 *\*\return FLASH_STS :
 *\*\        - FLASH_BUSY
@@ -1448,18 +1453,15 @@ FLASH_STS FLASH_Status_Get(void)
 /**
 *\*\name   FLASH_Last_Operation_Wait
 *\*\fun    Waits for a Flash operation to complete or a timeout to occur.
-*\*\note   This function can be used for N32G430 devices,
-*\*\       it is equivalent to FLASH_WaitForLastBank1Operation..
+*\*\note   This function can be used for N32G430 devices.
 *\*\param  timeout :
 *\*\            - ERASE_TIMEOUT
 *\*\            - PROGRAM_TIMEOUT
 *\*\return FLASH_STS: The returned value can be: 
 *\*\            - FLASH_BUSY
 *\*\            - FLASH_ERR_PG 
-*\*\            - FLASH_ERR_PV 
 *\*\            - FLASH_ERR_WRP
 *\*\            - FLASH_EOP
-*\*\            - FLASH_ERR_EV
 *\*\            - FLASH_TIMEOUT
 **/
 FLASH_STS FLASH_Last_Operation_Wait(uint32_t timeout)

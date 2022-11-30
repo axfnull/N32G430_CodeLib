@@ -28,7 +28,7 @@
 /**
 *\*\file main.c
 *\*\author Nations 
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #include "n32g430.h"
@@ -277,7 +277,7 @@ int main(void)
 
 /**
 *\*\name    I2C1_EV_IRQHandler.
-*\*\fun     i2c Interrupt service function.
+*\*\fun     i2c event Interrupt service function.
 *\*\param   none
 *\*\return  none 
 **/
@@ -382,7 +382,20 @@ void I2C1_EV_IRQHandler(void)
     }
 }
 
-
+/**
+*\*\name    I2C1_ER_IRQHandler.
+*\*\fun     i2c error Interrupt service function.
+*\*\param   none
+*\*\return  none 
+**/
+void I2C1_ER_IRQHandler(void)
+{
+		if(I2C_Flag_Status_Get(I2C1, I2C_FLAG_ACKFAIL))
+		{
+				I2C_Flag_Status_Clear(I2C1, I2C_FLAG_ACKFAIL);
+				I2C_Generate_Stop_Enable(I2C1); /* Send I2C1 STOP Condition. */
+		}
+}
 
 /**
 *\*\name   Buffercmp.

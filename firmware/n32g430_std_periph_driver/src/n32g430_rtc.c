@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_rtc.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
  
@@ -1145,7 +1145,7 @@ void RTC_WakeUp_Clock_Select(RTC_WAKE_UP_CLOCK RTC_WakeUp_Clock)
 /**
 *\*\name    RTC_WakeUp_Counter_Set.
 *\*\fun     Configures the RTC Wakeup counter.
-*\*\param   RTC_WakeUpCounter : specifies the WakeUp counter, the value in the 0-0xFFFF range
+*\*\param   RTC_WakeUpCounter : specifies the WakeUp counter, the value in the 1-0xFFFF range
 *\*\return  none
 **/
 void RTC_WakeUp_Counter_Set(uint32_t RTC_WakeUpCounter)

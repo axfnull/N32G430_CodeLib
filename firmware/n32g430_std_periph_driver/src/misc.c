@@ -28,7 +28,7 @@
 /**
 *\*\file misc.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #include "misc.h"
@@ -43,7 +43,7 @@
 *\*\            - NVIC_PER1_SUB3_PRIORITYGROUP    1 bits for pre-emption priority 3 bits for subpriority
 *\*\            - NVIC_PER2_SUB2_PRIORITYGROUP    2 bits for pre-emption priority 2 bits for subpriority
 *\*\            - NVIC_PER3_SUB1_PRIORITYGROUP    3 bits for pre-emption priority 1 bits for subpriority
-*\*\            - NVIC_PER4_SUB0_PRIORITYGROUP    4 bits for pre-emption priority 0 bits for subpriorit
+*\*\            - NVIC_PER4_SUB0_PRIORITYGROUP    4 bits for pre-emption priority 0 bits for subpriority
 *\*\return  none
 **/
 void NVIC_Priority_Group_Set(uint32_t NVIC_priority_group)

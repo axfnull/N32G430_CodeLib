@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_tim.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #include "n32g430_tim.h"
@@ -3979,19 +3979,6 @@ void TIM_Flag_Clear(TIM_Module* TIMx, uint32_t TIM_FLAG)
 *\*\         - TIM_DMABASE_CAPCMPDAT4
 *\*\         - TIM_DMABASE_BKDT
 *\*\         - TIM_DMABASE_DMACTRL
-*\*\         - TIM_DMABASE_DMAADDR
-*\*\         - TIM_DMABASE_CAPCMPMOD3
-*\*\         - TIM_DMABASE_CAPCMPDAT5
-*\*\         - TIM_DMABASE_CAPCMPDAT6
-*\*\         - TIM_DMABASE_CAPCMPDAT7
-*\*\         - TIM_DMABASE_CAPCMPDAT8
-*\*\         - TIM_DMABASE_CAPCMPDAT9
-*\*\         - TIM_DMABASE_BRKFILT
-*\*\         - TIM_DMABASE_C1FLIT
-*\*\         - TIM_DMABASE_C2FLIT
-*\*\         - TIM_DMABASE_C3FLIT
-*\*\         - TIM_DMABASE_C4FLIT
-*\*\         - TIM_DMABASE_FILTO
 *\*\param   TIM_DMABurstLength:
 *\*\         - TIM_DMABURST_LENGTH_1TRANSFER
 *\*\         - TIM_DMABURST_LENGTH_2TRANSFERS
@@ -4011,20 +3998,6 @@ void TIM_Flag_Clear(TIM_Module* TIMx, uint32_t TIM_FLAG)
 *\*\         - TIM_DMABURST_LENGTH_16TRANSFERS
 *\*\         - TIM_DMABURST_LENGTH_17TRANSFERS
 *\*\         - TIM_DMABURST_LENGTH_18TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_19TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_20TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_21TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_22TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_23TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_24TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_25TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_26TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_27TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_28TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_29TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_30TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_31TRANSFERS
-*\*\         - TIM_DMABURST_LENGTH_32TRANSFERS
 *\*\return  none
 **/
 void TIM_Dma_Config(TIM_Module* TIMx, uint16_t TIM_DMA_base, uint16_t TIM_DMA_burst_length)

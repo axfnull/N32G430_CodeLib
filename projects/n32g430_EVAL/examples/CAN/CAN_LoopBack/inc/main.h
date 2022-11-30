@@ -28,16 +28,22 @@
 /**
 *\*\file main.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "n32g430.h"
 #include "n32g430_conf.h"
 #include "can_config.h"
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __MAIN_H__ */

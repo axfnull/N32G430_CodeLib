@@ -28,7 +28,7 @@
 /**
 *\*\file main.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
 
@@ -47,6 +47,8 @@ RTC_InitType RTC_InitStructure;
 RTC_AlarmType RTC_AlarmStructure;
 RTC_AlarmType RTC_AlarmDefault;
 uint32_t SynchPrediv, AsynchPrediv;
+
+extern void PLL_TrimValueLoad(void);
 
 /**
 *\*\name    main.
@@ -79,13 +81,11 @@ int main(void)
         /* Turn off LED and prin some flag imformation */
         LedOff(LED1_PIN);
         delay(400);
-        log_info("\r\n start low power! \r\n");
-        /* Request to enter STOP mode with regulator in low power mode*/
-        //PWR_STOP0_Mode_Enter(PWR_REGULATOR_LOWPOWER, PWR_STOP0_ENTRY_WFI);
-        //PWR_SLEEP_Mode_Enter(PWR_SLEEP_NOW, PWR_SLEEP_ENTRY_WFI);
-        //PWR_STANDBY_Mode_Enter(PWR_STANDBY_ENTRY_WFI);
-        PWR_STOP2_Mode_Enter(PWR_STOP2_ENTRY_WFI);
-        /* Exit the low power ,need to reconfig the system clock */
+        log_info("\r\n start low power! \r\n");		
+        /* Request to enter STOP2 mode */
+        PWR_STOP2_Mode_Enter(PWR_STOP2_ENTRY_WFI);		
+        /* Exit the low power, need to reconfig the system clock
+			and reinitialize the required peripherals */
         SYSCLKConfig_STOP(RCC_CFG_PLLMULFCT16);
         log_init();
         log_info("\r\n Exit low power! \r\n");
@@ -125,14 +125,15 @@ void SYSCLKConfig_STOP(uint32_t RCC_PLLMULL)
         HSEStatus = (uint32_t)0x00;
     }
 
+	PLL_TrimValueLoad();
+	
     if (HSEStatus == (uint32_t)0x01)
     {
         /* Enable Prefetch Buffer */
         FLASH->AC |= FLASH_AC_PRFTBFEN;
 
-        /* Flash 2 wait state */
-        FLASH->AC &= (uint32_t)((uint32_t)~FLASH_AC_LATENCY);
-        FLASH->AC |= (uint32_t)FLASH_AC_LATENCY_4;
+        /* Flash 3 wait state */		
+		FLASH_Latency_Set(FLASH_LATENCY_3);
 
         /* HCLK = SYSCLK */
         RCC->CFG |= (uint32_t)RCC_CFG_AHBPRES_DIV1;

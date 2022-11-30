@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_comp.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
@@ -854,7 +854,7 @@ FlagStatus COMP_Interrupt_Status_OneComp_Get(COMPX COMPx)
 **/
 void COMP_Interrupt_Status_OneComp_Clear(COMPX COMPx)
 {
-    COMP->INTSTS = (REG_BIT1_OFFSET << COMPx);
+	  COMP->INTSTS &= ((~(REG_BIT1_OFFSET << COMPx )));
 }
 
 

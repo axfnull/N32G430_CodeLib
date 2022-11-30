@@ -28,13 +28,16 @@
 /**
 *\*\file n32g430_it.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
 #ifndef __N32G430_IT_H__
 #define __N32G430_IT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "n32g430.h"
 
@@ -49,6 +52,10 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 
 void CAN_RX0_IRQHandler(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __N32G430_IT_H__ */
 

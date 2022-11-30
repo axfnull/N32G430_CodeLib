@@ -28,7 +28,7 @@
 /**
 *\*\file main.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
 
@@ -36,6 +36,8 @@
 #include "log.h"
 #include <stdio.h>
 #include <stdint.h>
+
+extern void PLL_TrimValueLoad(void);
 
 /**
 *\*\name    main.
@@ -64,20 +66,20 @@ int main(void)
     while (1)
     {
         /* Insert a long delay */
-        delay(3000);
+        delay(1000);
         /* Set the LED */
         Ledlink(LED1);
         log_info("Entry STOP mode\n");
+		
         /* Request to enter STOP0 mode with regulator in low power mode*/
         PWR_STOP0_Mode_Enter(PWR_REGULATOR_LOWPOWER, PWR_STOP0_ENTRY_WFI);
-        /* Request to enter STOP2 mode*/
-//        PWR_STOP2_Mode_Enter(PWR_STOP2_ENTRY_WFI);
-        /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
+
+        /* Configures system clock after wake-up from STOP0: enable HSE, PLL and select
            PLL as system clock source (HSE and PLL are disabled in STOP mode) */
         SYSCLKConfig_STOP(RCC_CFG_PLLMULFCT16);
+		
 		/* When MR is in low power mode, it takes more time to exit STOP0 mode. */
 		delay(100);
-//        log_init();
         log_info("Exit STOP mode\n");
     }
 }
@@ -180,15 +182,16 @@ void SYSCLKConfig_STOP(uint32_t RCC_PLLMULL)
     {
         HSEStatus = (uint32_t)0x00;
     }
-
+	
+    PLL_TrimValueLoad();
+	
     if (HSEStatus == (uint32_t)0x01)
     {
         /* Enable Prefetch Buffer */
         FLASH->AC |= FLASH_AC_PRFTBFEN;
 
-        /* Flash 2 wait state */
-        FLASH->AC &= (uint32_t)((uint32_t)~FLASH_AC_LATENCY);
-        FLASH->AC |= (uint32_t)FLASH_AC_LATENCY_4;
+        /* Flash 3 wait state */		
+		FLASH_Latency_Set(FLASH_LATENCY_3);
 
         /* HCLK = SYSCLK */
         RCC->CFG |= (uint32_t)RCC_CFG_AHBPRES_DIV1;

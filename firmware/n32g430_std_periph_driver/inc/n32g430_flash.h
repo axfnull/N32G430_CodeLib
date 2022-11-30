@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_flash.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #ifndef __N32G430_FLASH_H__
@@ -255,7 +255,7 @@ FLASH_STS FLASH_Option_Bytes_User2_RDP2_Program(uint8_t option_byte_rpd2,uint8_t
 FLASH_STS FLASH_Read_Out_Protection_L1_Enable(void);
 FLASH_STS FLASH_Read_Out_Protection_L1_Disable(void);
 FLASH_STS FLASH_Read_Out_Protection_L2_Enable(void);
-uint32_t FLASH_Option_Bytes_User_Get(void);
+FlagStatus FLASH_Option_Bytes_User_Get(uint32_t option_byte_bit);
 FlagStatus FLASH_Option_Bytes2_User_Get(uint32_t boot_bit);
 uint32_t FLASH_Option_Bytes_Data0_Get(void);
 uint32_t FLASH_Option_Bytes_Data1_Get(void);

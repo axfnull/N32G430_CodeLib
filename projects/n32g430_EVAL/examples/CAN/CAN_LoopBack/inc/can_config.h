@@ -29,13 +29,16 @@
 /**
 *\*\file can_config.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/ 
  
 #ifndef __CAN_CONFIG_H__
 #define __CAN_CONFIG_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "n32g430.h"
 #include "n32g430_conf.h"
@@ -60,6 +63,9 @@ extern CanRxMessage CAN_RxMessage;
 extern CAN_InitType        CAN_InitStructure;
 extern CAN_FilterInitType  CAN_FilterInitStructure;
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __CAN_CONFIG_H__ */
 

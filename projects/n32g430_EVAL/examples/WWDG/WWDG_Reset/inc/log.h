@@ -28,12 +28,16 @@
 /**
 *\*\file log.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
 #ifndef __LOG_H__
 #define __LOG_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdio.h>
 #include "n32g430.h"
@@ -76,5 +80,9 @@ void log_init(void);
 void Usart_SendString(USART_Module* USARTx, char *str);
 
 #define log_func() log_debug("call %s\r\n", __FUNCTION__)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __LOG_H__ */

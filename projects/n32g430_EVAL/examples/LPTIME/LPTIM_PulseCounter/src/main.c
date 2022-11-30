@@ -28,7 +28,7 @@
 /**
 *\*\file      main.c
 *\*\author    Nations
-*\*\version   v1.0.0
+*\*\version   v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved. 
 */
 #include "main.h"
@@ -221,9 +221,9 @@ void PWM_Out(uint16_t Pin,uint8_t cnt)
     uint8_t i;
     for (i = 0; i< cnt;i++)
     {
-        LedOff(Pin);
+        GPIO_Pins_Set(GPIOA, Pin);
         delay(10);
-        LedOn(Pin);    
+        GPIO_PBSC_Pins_Reset(GPIOA, Pin);
         delay(10);
     }
 }

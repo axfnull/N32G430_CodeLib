@@ -28,7 +28,7 @@
 /**
 *\*\file      main.c
 *\*\author    Nations
-*\*\version   v1.0.0
+*\*\version   v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved. 
 */
 #include "main.h"
@@ -75,7 +75,7 @@ int main(void)
     Lptim_NENCInit();
     /* LPTIM start count*/
     LPTIM_Counter_Start(LPTIM,LPTIM_OPERATING_MODE_CONTINUOUS); 
-    /* Great 20 square waves ,and encCNT should be equal to 40*/
+    /* Great 20 square waves ,and encCNT should be equal to 20*/
     NoEncWaveOutput(COUNT_NUM);
     encCNT = LPTIM->CNT; 
     if(encCNT == COUNT_NUM)
@@ -219,14 +219,13 @@ void NoEncWaveOutput(uint16_t count)
 {
     while(count--)
     {
-        LedOff(LED1);
+        GPIO_Pins_Set(GPIOA, GPIO_PIN_1);
         delay(2);
-        LedOn(LED1);
+        GPIO_PBSC_Pins_Reset(GPIOA, GPIO_PIN_1);
         delay(2);
-        LedOff(LED2);
-        //LedOff(LED1);
+        GPIO_Pins_Set(GPIOA, GPIO_PIN_7);
         delay(2);
-        LedOn(LED2);
+        GPIO_PBSC_Pins_Reset(GPIOA, GPIO_PIN_7);
         delay(2);
     }
 }

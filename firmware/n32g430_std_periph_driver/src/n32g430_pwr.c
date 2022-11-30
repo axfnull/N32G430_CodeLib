@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_pwr.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
 
@@ -122,7 +122,7 @@ void PWR_PVD_Level_Config(uint32_t level)
     temp_value = PWR->CTRL;
     /* Clear PLS[7:5] bits and MSB bit */
     temp_value &= PWR_CTRL_PLSMSB_MASK;
-    /* Set PRS[7:5] bits according to level value */
+    /* Set PLS[7:5] bits according to level value */
     temp_value |= level;
     /* Store the new value */
     PWR->CTRL = temp_value;

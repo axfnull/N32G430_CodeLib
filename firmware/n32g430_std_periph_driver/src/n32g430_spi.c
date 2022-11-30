@@ -28,7 +28,7 @@
 /**
 *\*\file      n32g430_spi.c
 *\*\author    Nations
-*\*\version   v1.0.0
+*\*\version   v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved. 
 **/
 
@@ -621,8 +621,8 @@ void I2S_Initializes_Structure(I2S_InitType* I2S_InitStruct)
 *\*\           - I2S_DATA_FMT_24BITS          
 *\*\           - I2S_DATA_FMT_32BITS          
 *\*\          - MCLKEnable
-*\*\           - ENABLE 
-*\*\           - DISABLE
+*\*\           - I2S_MCLK_ENABLE 
+*\*\           - I2S_MCLK_DISABLE
 *\*\          - AudioFrequency
 *\*\           - I2S_AUDIO_FREQ_192K   
 *\*\           - I2S_AUDIO_FREQ_96K    
@@ -644,7 +644,7 @@ void I2S_Initializes(SPI_Module* SPIx, I2S_InitType* I2S_InitStruct)
     I2S_Mode_Config(SPIx, I2S_InitStruct->I2sMode);
     I2S_Standard_Config(SPIx, I2S_InitStruct->Standard);
     I2S_DataFormat_Config(SPIx, I2S_InitStruct->DataFormat);
-    if(I2S_InitStruct->MCLKEnable == ENABLE)
+    if(I2S_InitStruct->MCLKEnable == I2S_MCLK_ENABLE)
     {
         I2S_MCLK_Enable(SPIx);
     }

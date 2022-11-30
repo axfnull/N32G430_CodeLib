@@ -433,6 +433,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\firmware\n32g430_std_periph_driver\src\n32g430_dma.c</FilePath>
             </File>
+            <File>
+              <FileName>n32g430_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\firmware\n32g430_std_periph_driver\src\n32g430_flash.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -469,5 +474,14 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>ADC_TEMP</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

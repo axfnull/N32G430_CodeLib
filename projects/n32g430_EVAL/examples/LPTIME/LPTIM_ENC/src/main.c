@@ -28,7 +28,7 @@
 /**
 *\*\file      main.c
 *\*\author    Nations
-*\*\version   v1.0.0
+*\*\version   v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved. 
 */
 #include "main.h"
@@ -216,15 +216,13 @@ void EncWaveOutput(uint16_t count)
 {
     while(count--)
     {
-        LedOn(LED1);
+        GPIO_PBSC_Pins_Reset(GPIOA, GPIO_PIN_1);
         delay(2);
-        //LedOff(LED1);
-        LedOn(LED2);
+        GPIO_PBSC_Pins_Reset(GPIOA, GPIO_PIN_7);
         delay(2);
-        //LedOn(LED2);
-        LedOff(LED1);
+        GPIO_Pins_Set(GPIOA, GPIO_PIN_1);
         delay(2);
-        LedOff(LED2);
+        GPIO_Pins_Set(GPIOA, GPIO_PIN_7);
         delay(2);
     }
 }

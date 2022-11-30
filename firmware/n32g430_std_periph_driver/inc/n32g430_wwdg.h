@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_wwdg.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
@@ -76,6 +76,9 @@ FlagStatus WWDG_EWINTF_Flag_Get(void);
 void WWDG_EWINTF_Flag_Clear(void);
 
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __N32G430_WWDG_H__ */
 

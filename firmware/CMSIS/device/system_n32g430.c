@@ -28,7 +28,7 @@
 /**
 *\*\file system_n32g430.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
 #include "n32g430.h"
@@ -149,6 +149,48 @@ static void System_Clock_Set(void);
 static void SystemInit_ExtMemCtl(void);
 #endif /* DATA_IN_ExtSRAM */
 
+typedef void (*pFunction)(uint32_t, uint32_t*);
+
+/**
+*\*\name    PLL_TrimValueLoad.
+*\*\fun     Load PLL trim value.
+*\*\param   none
+*\*\return  none
+**/
+void PLL_TrimValueLoad(void)
+{
+    pFunction get_nvr = (pFunction)(0x1FFF02A5);
+    
+    uint32_t value = 0, value1,value3,value4;
+    uint32_t temp = 0;
+	
+    /* Disable the iCache */
+    FLASH->AC &= FLASH_ICACHE_DIS;
+    /* ICache Reset */
+    FLASH->AC |= FLASH_ICAHRST_MSK;
+    
+    get_nvr(0x1FFFF020, &value);
+    if((value & 0xFF) <= 5)
+    {
+        get_nvr(0x1FFFF230,&value);
+        /* Big-endian little-endian exchange */
+        value1 = value >>24;
+        value3 = (value & 0xFF0000)>>8;
+        value4 = (value & 0xFF00)<<8;
+        value = value1 | value3  | value4;
+        
+        temp = AFEC->TRIMR1 &0xFF000000;
+        temp |= value;
+
+        AFEC->TRIMR1 = temp;
+    }
+    else
+    {
+        
+    }
+    /* Enable the iCache */
+    FLASH->AC |= FLASH_ICACHE_EN;
+}
 
 /**
 *\*\name    System_Initializes.
@@ -187,7 +229,7 @@ void System_Initializes(void)
     RCC->CFG2 = RCC_CFG2_ADC1MPRES_DIV8;
 
     /* Reset PLLHSIPRE register */
-    RCC->PLLHSIPRE = REG_BIT_MASK;
+    RCC->PLLHSIPRE |= RCC_PLLHSIPRE_PLLHSIPRE;
 
     /* Disable all interrupts and clear pending bits  */
     RCC->CLKINT = (RCC_CLKINT_LSIRDICLR|RCC_CLKINT_LSERDICLR|RCC_CLKINT_HSIRDICLR
@@ -435,7 +477,7 @@ static void System_Clock_Set(void)
     {
     }
 #elif SYSCLK_SRC == SYSCLK_USE_HSI_PLL || SYSCLK_SRC == SYSCLK_USE_HSE_PLL
-
+    PLL_TrimValueLoad();
     /* clear bits */
     RCC->CFG &= (uint32_t)((uint32_t) ~(RCC_CFG_PLLSRC | RCC_CFG_PLLHSEPRES | RCC_CFG_PLLMULFCT));
     RCC->PLLHSIPRE &= (uint32_t)((uint32_t) ~(RCC_PLLHSIPRE_PLLHSIPRE));

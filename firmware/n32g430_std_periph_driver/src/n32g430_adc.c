@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_adc.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
@@ -39,11 +39,6 @@
 
 /** API interface function definition**/
 uint32_t vrefint_value; 
-typedef enum
-{
-    CMD_CR_SUCCESS  = 0x00,
-    CMD_CR_FAILED   = 0x01,
-}CMD_RETURN_CR;
 
 CMD_RETURN_CR (*Program_NVR)(uint32_t addr, uint32_t  data) = (CMD_RETURN_CR (*)(uint32_t ,uint32_t ))0x1FFF01D1;
 CMD_RETURN_CR     (*Get_NVR)(uint32_t addr, uint32_t* data) = (CMD_RETURN_CR (*)(uint32_t ,uint32_t*))0x1FFF02A5;

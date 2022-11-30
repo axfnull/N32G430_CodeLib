@@ -28,15 +28,15 @@
 /**
 *\*\file main.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #include <stdio.h>
 #include "main.h"
 
-/* Voltage value ,temperature sensor under 3.3V and 25 celsius */
-#define NVR_V25_ADDR  ((uint32_t)0x1FFFF7D2) 
 
+uint32_t T_value=0;
+uint32_t VTS_value=0;
 
 ADC_InitType ADC_InitStructure;
 DMA_InitType DMA_InitStructure;
@@ -51,21 +51,31 @@ void USART_Config(void);
 
 
 
-/*xx mv per degree Celsius  by datasheet define*/
+/*xx mv per celsius degree by datasheet define*/
 #define AVG_SLOPE  0.004f
 
 
 
-/**  Cal temp use float result.  **/
-float TempCal(uint16_t TempAdVal)
+/**  Calculate temperature use float result.  **/
+float TempratureCalculate(uint16_t TempAdVal)
 { 
 	
-		uint16_t V25Voltage = *((uint16_t*)NVR_V25_ADDR);
     float Temperate,tempValue;
+	
+		FLASH_ICache_Disable();
+		FLASH_ICache_Reset();	
+	  /* Get the voltage value , temperature sensor under 3.3V and 25 celsius */
+		Get_NVR(0x1FFFF7D0, &VTS_value);
+		VTS_value = (uint16_t)(VTS_value>>16);		
+	  /* Get the trim temperature */	
+		Get_NVR(0x1FFFF040, &T_value);		
+		T_value = (uint16_t)(T_value>>16);		
+		FLASH_ICache_Enable();	
+	
     /* Voltage value of temperature sensor */
 	  tempValue=TempAdVal*(3.3/4095);
     /* Get the temperature inside the chip */
-	  Temperate=(V25Voltage-(tempValue*1000))/(AVG_SLOPE*1000)+25.0f;
+	  Temperate=(VTS_value-(tempValue*1000))/(AVG_SLOPE*1000)+T_value/1000-1.25f;
     return Temperate;
 }
 
@@ -137,7 +147,7 @@ int main(void)
     {
  
         /* */
-        TempValue = TempCal(ADCConvertedValue);
+        TempValue = TempratureCalculate(ADCConvertedValue);
         printf("\r\n Temperature = %.1f C\r\n",TempValue);         
         Delay(10000);
     }

@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_tim.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.2
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 #ifndef __N32G430_TIM_H__
@@ -443,23 +443,6 @@ typedef struct
 #define TIM_DMABASE_CAPCMPDAT4 ((uint16_t)0x0010)
 #define TIM_DMABASE_BKDT       ((uint16_t)0x0011)
 #define TIM_DMABASE_DMACTRL    ((uint16_t)0x0012)
-#define TIM_DMABASE_DMAADDR    ((uint16_t)0x0013)
-#define TIM_DMABASE_CAPCMPMOD3 ((uint16_t)0x0014)
-#define TIM_DMABASE_CAPCMPDAT5 ((uint16_t)0x0015)
-#define TIM_DMABASE_CAPCMPDAT6 ((uint16_t)0x0016)
-#define TIM_DMABASE_CAPCMPDAT7 ((uint16_t)0x0017)
-#define TIM_DMABASE_CAPCMPDAT8 ((uint16_t)0x0018)
-#define TIM_DMABASE_CAPCMPDAT9 ((uint16_t)0x0019)
-#define TIM_DMABASE_BRKFILT    ((uint16_t)0x001A)
-#define TIM_DMABASE_C1FLIT     ((uint16_t)0x001B)
-#define TIM_DMABASE_C2FLIT     ((uint16_t)0x001C)
-#define TIM_DMABASE_C3FLIT     ((uint16_t)0x001D)
-#define TIM_DMABASE_C4FLIT     ((uint16_t)0x001E)
-#define TIM_DMABASE_FILTO      ((uint16_t)0x001F)
-
-
-
-
 
 /** TIM_DMA_Burst_Length **/
 #define TIM_DMABURST_LENGTH_1TRANSFER   (TIM_REG16_BIT_ZERO)
@@ -480,21 +463,6 @@ typedef struct
 #define TIM_DMABURST_LENGTH_16TRANSFERS ((uint16_t)0x0F00)
 #define TIM_DMABURST_LENGTH_17TRANSFERS ((uint16_t)0x1000)
 #define TIM_DMABURST_LENGTH_18TRANSFERS ((uint16_t)0x1100)
-#define TIM_DMABURST_LENGTH_19TRANSFERS ((uint16_t)0x1200)
-#define TIM_DMABURST_LENGTH_20TRANSFERS ((uint16_t)0x1300)
-#define TIM_DMABURST_LENGTH_21TRANSFERS ((uint16_t)0x1400)
-#define TIM_DMABURST_LENGTH_22TRANSFERS ((uint16_t)0x1500)
-#define TIM_DMABURST_LENGTH_23TRANSFERS ((uint16_t)0x1600)
-#define TIM_DMABURST_LENGTH_24TRANSFERS ((uint16_t)0x1700)
-#define TIM_DMABURST_LENGTH_25TRANSFERS ((uint16_t)0x1800)
-#define TIM_DMABURST_LENGTH_26TRANSFERS ((uint16_t)0x1900)
-#define TIM_DMABURST_LENGTH_27TRANSFERS ((uint16_t)0x1A00)
-#define TIM_DMABURST_LENGTH_28TRANSFERS ((uint16_t)0x1B00)
-#define TIM_DMABURST_LENGTH_29TRANSFERS ((uint16_t)0x1C00)
-#define TIM_DMABURST_LENGTH_30TRANSFERS ((uint16_t)0x1D00)
-#define TIM_DMABURST_LENGTH_31TRANSFERS ((uint16_t)0x1E00)
-#define TIM_DMABURST_LENGTH_32TRANSFERS ((uint16_t)0x1F00)
-
 
 /** TIM_DMA_sources **/
 #define TIM_DMA_UPDATE      (TIM_DINTEN_UDEN)
@@ -927,4 +895,8 @@ void TIM_Channel4_Filter_Disable(TIM_Module* TIMx);
 void TIM_Break_Filter_Enable(TIM_Module * TIMx);
 void TIM_Break_Filter_Disable(TIM_Module * TIMx);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* _N32G430_TIM_H__ */

@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430_rcc.c
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved. 
 **/
 #include "n32g430_rcc.h"
@@ -69,7 +69,7 @@ void RCC_Reset(void)
     RCC->CFG2 = RCC_CFG2_ADC1MPRES_DIV8;
 
     /* Reset PLLHSIPRE register */
-    RCC->PLLHSIPRE = RCC_REG_BIT_MASK;
+    RCC->PLLHSIPRE |= RCC_PLLHSIPRE_PLLHSIPRE;
 
     /* Disable all interrupts and clear pending bits  */
     RCC->CLKINT = (RCC_CLKINT_LSIRDICLR|RCC_CLKINT_LSERDICLR|RCC_CLKINT_HSIRDICLR

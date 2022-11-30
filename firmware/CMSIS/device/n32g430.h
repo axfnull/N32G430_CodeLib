@@ -28,7 +28,7 @@
 /**
 *\*\file n32g430.h
 *\*\author Nations
-*\*\version v1.0.0
+*\*\version v1.0.1
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/ 
 #ifndef __N32G430_H__
@@ -1220,11 +1220,11 @@ typedef struct
 #define RCC_CTRLSTS_LPWRRSTF ((uint32_t)0x80000000) /* Low-Power reset flag */
 
 /** Bit definition for RCC_AHBPRST register **/
-#define RCC_AHBPRST_IOPARST   ((uint32_t)0x00000080) /* I/O port A clock enable */
-#define RCC_AHBPRST_IOPBRST   ((uint32_t)0x00000100) /* I/O port B clock enable */
-#define RCC_AHBPRST_IOPCRST   ((uint32_t)0x00000200) /* I/O port C clock enable */
-#define RCC_AHBPRST_IOPDRST   ((uint32_t)0x00000400) /* I/O port D clock enable */
-#define RCC_AHBPRST_ADCRST    ((uint32_t)0x00001000) /* ADC clock enable */
+#define RCC_AHBPRST_IOPARST   ((uint32_t)0x00000080) /* I/O port A clock reset */
+#define RCC_AHBPRST_IOPBRST   ((uint32_t)0x00000100) /* I/O port B clock reset */
+#define RCC_AHBPRST_IOPCRST   ((uint32_t)0x00000200) /* I/O port C clock reset */
+#define RCC_AHBPRST_IOPDRST   ((uint32_t)0x00000400) /* I/O port D clock reset */
+#define RCC_AHBPRST_ADCRST    ((uint32_t)0x00001000) /* ADC clock reset */
 
 /** Bit definition for RCC_CFG2 register **/
 /** ADCHPRE configuration **/
@@ -2568,7 +2568,7 @@ typedef struct
 
 #define COMP2_CTRL_OUT       ((uint32_t)0x00080000) /* Output state of Comparator_2 */
 #define COMP2_CTRL_PWRMODE   ((uint32_t)0x00100000) /* Power mode of Comparator_2 */
-#define COMP2_CTRL_FILTVAL   ((uint32_t)0000200000) /* Output state after the digital filter Comparator_2 */
+#define COMP2_CTRL_FILTVAL   ((uint32_t)0x00200000) /* Output state after the digital filter Comparator_2 */
 
 
 /** COMP2_FILC register **/
